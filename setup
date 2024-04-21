@@ -26,7 +26,7 @@ fi
 # to include this package in SetupHelper automatic updates
 
 packageGitHubUser="drtinaz"
-packageGitHubBranch="dev2"
+packageGitHubBranch="main"
 
 
 #### running manually and OK to proceed - prompt for input

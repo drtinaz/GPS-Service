@@ -1,21 +1,2 @@
-v3.2.1
-	Remove menu option for 16x relay module for unit1 (currently not supported)
-	Add support for reading relay state
-v3.2
-	Add support for 3 relays and dynamic sellection of number of relays per unit
-v3.1:
-	Venus OS version independant
-v3.0:
-	Native D-Bus and driver installed as a service
-	Node-Red now optional
-	All configuration available from GUI (in I/O Settings)
-v2.4.1
-	last version based on Node-Red
-	supports venus 3.21
-v2.4
-	fix setup file caused error 255
-	update for v3.14, v3.20~45 and v3.20~47
-v2.x:
-	Fully automated setup with support for PackackageManager (SetupHelper from Windrem)
-v1.x:
-	Initial support of rgpio with manuel setup
+v3.0
+	Initial release
