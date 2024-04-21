@@ -6,7 +6,7 @@
 #	setup install
 #	setup uninstall
 
-packageLogFile="/var/log/RemoteGPIO/current"
+packageLogFile="/var/log/RemoteGPIOv2/current"
 
 #### following lines incorporate helper resources into this script
 pkgDir=$( dirname $0 )
