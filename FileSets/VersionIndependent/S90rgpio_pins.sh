@@ -105,23 +105,23 @@ set_setting /Settings/DigitalInput/20/Type variant:int32:0
 if [[ $nbunit -eq 1 || $nbunit -eq 2 || $nbunit = 3 ]]; then
     if [[ $nbrelays -eq 2 || $nbrelays -eq 4 || $nbrelays -eq 6 || $nbrelays -eq 8 || $nbrelays -eq 10 || $nbrelays -eq 12 || $nbrelays -eq 14 || $nbrelays -eq 16 ]]; then
 	    #Relays
-	    ln -sf /data/RemoteGPIO/sys/class/gpio/gpio103 /dev/gpio/relay_3
-	    ln -sf /data/RemoteGPIO/sys/class/gpio/gpio104 /dev/gpio/relay_4
+	    ln -sf /data/RemoteGPIOv2/sys/class/gpio/gpio103 /dev/gpio/relay_3
+	    ln -sf /data/RemoteGPIOv2/sys/class/gpio/gpio104 /dev/gpio/relay_4
 
 	    #Digital_Inputs
-	    ln -sf /data/RemoteGPIO/sys/class/gpio/gpio205 /dev/gpio/digital_input_5
-	    ln -sf /data/RemoteGPIO/sys/class/gpio/gpio206 /dev/gpio/digital_input_6
+	    ln -sf /data/RemoteGPIOv2/sys/class/gpio/gpio205 /dev/gpio/digital_input_5
+	    ln -sf /data/RemoteGPIOv2/sys/class/gpio/gpio206 /dev/gpio/digital_input_6
     fi
 
 
     if [[ $nbrelays -eq 4 || $nbrelays -eq 6 || $nbrelays -eq 8 || $nbrelays -eq 10 || $nbrelays -eq 12 || $nbrelays -eq 14 || $nbrelays -eq 16 ]]; then
 	    #Relays
-	    ln -sf /data/RemoteGPIO/sys/class/gpio/gpio105 /dev/gpio/relay_5
-	    ln -sf /data/RemoteGPIO/sys/class/gpio/gpio106 /dev/gpio/relay_6
+	    ln -sf /data/RemoteGPIOv2/sys/class/gpio/gpio105 /dev/gpio/relay_5
+	    ln -sf /data/RemoteGPIOv2/sys/class/gpio/gpio106 /dev/gpio/relay_6
 
 	    #Digital_Inputs
-	    ln -sf /data/RemoteGPIO/sys/class/gpio/gpio207 /dev/gpio/digital_input_7
-	    ln -sf /data/RemoteGPIO/sys/class/gpio/gpio208 /dev/gpio/digital_input_8
+	    ln -sf /data/RemoteGPIOv2/sys/class/gpio/gpio207 /dev/gpio/digital_input_7
+	    ln -sf /data/RemoteGPIOv2/sys/class/gpio/gpio208 /dev/gpio/digital_input_8
 
 
     fi
@@ -130,69 +130,69 @@ if [[ $nbunit -eq 1 || $nbunit -eq 2 || $nbunit = 3 ]]; then
 
     if [[ $nbrelays -eq 6 || $nbrelays -eq 8 || $nbrelays -eq 10 || $nbrelays -eq 12 || $nbrelays -eq 14 || $nbrelays -eq 16 ]]; then
         #Relays
-        ln -sf /data/RemoteGPIO/sys/class/gpio/gpio107 /dev/gpio/relay_7
-        ln -sf /data/RemoteGPIO/sys/class/gpio/gpio108 /dev/gpio/relay_8
+        ln -sf /data/RemoteGPIOv2/sys/class/gpio/gpio107 /dev/gpio/relay_7
+        ln -sf /data/RemoteGPIOv2/sys/class/gpio/gpio108 /dev/gpio/relay_8
       
         #Digital_Inputs
-        ln -sf /data/RemoteGPIO/sys/class/gpio/gpio209 /dev/gpio/digital_input_9
-        ln -sf /data/RemoteGPIO/sys/class/gpio/gpio210 /dev/gpio/digital_input_a
+        ln -sf /data/RemoteGPIOv2/sys/class/gpio/gpio209 /dev/gpio/digital_input_9
+        ln -sf /data/RemoteGPIOv2/sys/class/gpio/gpio210 /dev/gpio/digital_input_a
     fi
 
     if [[ $nbrelays -eq 8 || $nbrelays -eq 10 || $nbrelays -eq 12 || $nbrelays -eq 14 || $nbrelays -eq 16 ]]; then
         #Relays
-        ln -sf /data/RemoteGPIO/sys/class/gpio/gpio109 /dev/gpio/relay_9
-        ln -sf /data/RemoteGPIO/sys/class/gpio/gpio110 /dev/gpio/relay_a
+        ln -sf /data/RemoteGPIOv2/sys/class/gpio/gpio109 /dev/gpio/relay_9
+        ln -sf /data/RemoteGPIOv2/sys/class/gpio/gpio110 /dev/gpio/relay_a
        
         #Digital_Inputs
-        ln -sf /data/RemoteGPIO/sys/class/gpio/gpio211 /dev/gpio/digital_input_b
-        ln -sf /data/RemoteGPIO/sys/class/gpio/gpio212 /dev/gpio/digital_input_c
+        ln -sf /data/RemoteGPIOv2/sys/class/gpio/gpio211 /dev/gpio/digital_input_b
+        ln -sf /data/RemoteGPIOv2/sys/class/gpio/gpio212 /dev/gpio/digital_input_c
     fi
 
 
     if [[ $nbrelays -eq 10 || $nbrelays -eq 12 || $nbrelays -eq 14 || $nbrelays -eq 16 ]]; then
         #Relays
-        ln -sf /data/RemoteGPIO/sys/class/gpio/gpio111 /dev/gpio/relay_b
-        ln -sf /data/RemoteGPIO/sys/class/gpio/gpio112 /dev/gpio/relay_c
+        ln -sf /data/RemoteGPIOv2/sys/class/gpio/gpio111 /dev/gpio/relay_b
+        ln -sf /data/RemoteGPIOv2/sys/class/gpio/gpio112 /dev/gpio/relay_c
        
         #Digital_Inputs
-        ln -sf /data/RemoteGPIO/sys/class/gpio/gpio213 /dev/gpio/digital_input_d
-        ln -sf /data/RemoteGPIO/sys/class/gpio/gpio214 /dev/gpio/digital_input_e
+        ln -sf /data/RemoteGPIOv2/sys/class/gpio/gpio213 /dev/gpio/digital_input_d
+        ln -sf /data/RemoteGPIOv2/sys/class/gpio/gpio214 /dev/gpio/digital_input_e
     fi
 
 
 
     if [[ $nbrelays -eq 12 || $nbrelays -eq 14 || $nbrelays -eq 16  ]]; then
         #Relays
-        ln -sf /data/RemoteGPIO/sys/class/gpio/gpio113 /dev/gpio/relay_d
-        ln -sf /data/RemoteGPIO/sys/class/gpio/gpio114 /dev/gpio/relay_e
+        ln -sf /data/RemoteGPIOv2/sys/class/gpio/gpio113 /dev/gpio/relay_d
+        ln -sf /data/RemoteGPIOv2/sys/class/gpio/gpio114 /dev/gpio/relay_e
        
         #Digital_Inputs
-        ln -sf /data/RemoteGPIO/sys/class/gpio/gpio215 /dev/gpio/digital_input_f
-        ln -sf /data/RemoteGPIO/sys/class/gpio/gpio216 /dev/gpio/digital_input_g
+        ln -sf /data/RemoteGPIOv2/sys/class/gpio/gpio215 /dev/gpio/digital_input_f
+        ln -sf /data/RemoteGPIOv2/sys/class/gpio/gpio216 /dev/gpio/digital_input_g
     fi
 
 
 
     if [[ $nbrelays -eq 14 || $nbrelays -eq 16 ]]; then
         #Relays
-        ln -sf /data/RemoteGPIO/sys/class/gpio/gpio115 /dev/gpio/relay_f
-        ln -sf /data/RemoteGPIO/sys/class/gpio/gpio116 /dev/gpio/relay_g
+        ln -sf /data/RemoteGPIOv2/sys/class/gpio/gpio115 /dev/gpio/relay_f
+        ln -sf /data/RemoteGPIOv2/sys/class/gpio/gpio116 /dev/gpio/relay_g
        
         #Digital_Inputs
-        ln -sf /data/RemoteGPIO/sys/class/gpio/gpio217 /dev/gpio/digital_input_h
-        ln -sf /data/RemoteGPIO/sys/class/gpio/gpio218 /dev/gpio/digital_input_i
+        ln -sf /data/RemoteGPIOv2/sys/class/gpio/gpio217 /dev/gpio/digital_input_h
+        ln -sf /data/RemoteGPIOv2/sys/class/gpio/gpio218 /dev/gpio/digital_input_i
     fi
 
 
 
     if [[ $nbrelays -eq 16 ]]; then
         #Relays
-        ln -sf /data/RemoteGPIO/sys/class/gpio/gpio117 /dev/gpio/relay_h
-        ln -sf /data/RemoteGPIO/sys/class/gpio/gpio118 /dev/gpio/relay_i
+        ln -sf /data/RemoteGPIOv2/sys/class/gpio/gpio117 /dev/gpio/relay_h
+        ln -sf /data/RemoteGPIOv2/sys/class/gpio/gpio118 /dev/gpio/relay_i
        
         #Digital_Inputs
-        ln -sf /data/RemoteGPIO/sys/class/gpio/gpio219 /dev/gpio/digital_input_j
-        ln -sf /data/RemoteGPIO/sys/class/gpio/gpio220 /dev/gpio/digital_input_k
+        ln -sf /data/RemoteGPIOv2/sys/class/gpio/gpio219 /dev/gpio/digital_input_j
+        ln -sf /data/RemoteGPIOv2/sys/class/gpio/gpio220 /dev/gpio/digital_input_k
     fi
 fi
 

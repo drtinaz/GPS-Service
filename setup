@@ -32,8 +32,8 @@ packageGitHubBranch="main"
 #### running manually and OK to proceed - prompt for input
 if [ $scriptAction == 'NONE' ] ; then
 	echo
-	echo "The RemoteGPIO is adding external Relays and Digital Inputs"
-	echo "with Dingtian IOT Relay devices either connected via USB or TCP"
+	echo "The RemoteGPIOv2 is adding external Relays and Digital Inputs"
+	echo "with Dingtian IOT Relay devices either connected via TCP"
 	echo
 	standardActionPrompt
 fi
@@ -41,13 +41,13 @@ fi
 #### here to do the actual work
 
 if [ $scriptAction == 'INSTALL' ] ; then
-	logMessage "++ Installing RemoteGPIO"
+	logMessage "++ Installing RemoteGPIOv2"
 
 	##
 	## Prepare the devices in /data/RemoteGPIO/sys and conf folder
 	##############################################################
-	tar -xvf /data/RemoteGPIO/FileSets/VersionIndependent/sys.tar.gz -C /data/RemoteGPIO/
-	tar -xvf /data/RemoteGPIO/FileSets/VersionIndependent/bin.tar.gz -C /data/RemoteGPIO/
+	tar -xvf /data/RemoteGPIOv2/FileSets/VersionIndependent/sys.tar.gz -C /data/RemoteGPIOv2/
+	tar -xvf /data/RemoteGPIOv2/FileSets/VersionIndependent/bin.tar.gz -C /data/RemoteGPIOv2/
 
 	
 	##
@@ -60,7 +60,7 @@ if [ $scriptAction == 'INSTALL' ] ; then
 		then
 		cp /usr/lib/node_modules/@victronenergy/node-red-contrib-victron/src/services/services.json /usr/lib/node_modules/@victronenergy/node-red-contrib-victron/src/services/services.json.orig
 		fi
-		patch /usr/lib/node_modules/@victronenergy/node-red-contrib-victron/src/services/services.json /data/RemoteGPIO/FileSets/PatchSource/services.json.patch
+		patch /usr/lib/node_modules/@victronenergy/node-red-contrib-victron/src/services/services.json /data/RemoteGPIOv2/FileSets/PatchSource/services.json.patch
 		
 	fi
 	
@@ -72,7 +72,7 @@ fi
 # #### uninstalling - check scriptAction again
 # if an install step failed package needs to be removed
 if [ $scriptAction == 'UNINSTALL' ] ; then
-    logMessage "++ Uninstalling RemoteGPIO"
+    logMessage "++ Uninstalling RemoteGPIOv2"
 
 
 
@@ -81,7 +81,7 @@ if [ $scriptAction == 'UNINSTALL' ] ; then
 	#############################################
 	if [ $(dbus -y com.victronenergy.settings /Settings/System/ImageType GetValue) == 1 ]
 	then
-		patch -R /usr/lib/node_modules/@victronenergy/node-red-contrib-victron/src/services/services.json /data/RemoteGPIO/FileSets/PatchSource/services.json.patch
+		patch -R /usr/lib/node_modules/@victronenergy/node-red-contrib-victron/src/services/services.json /data/RemoteGPIOv2/FileSets/PatchSource/services.json.patch
 		
 	fi
 

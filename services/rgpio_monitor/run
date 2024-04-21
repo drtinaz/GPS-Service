@@ -1,4 +1,4 @@
 #!/bin/sh
-echo "*** starting RemoteGPIO ***"
+echo "*** starting RemoteGPIOv2 ***"
 exec 2>&1
-exec /data/RemoteGPIO/rgpio_monitor
+exec /data/RemoteGPIOv2/rgpio_monitor

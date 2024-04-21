@@ -37,7 +37,7 @@ do
 			###################
 			if [ $service != $latch ]
 			then
-				echo "Uninstalling remote relay pins" >> /var/log/RemoteGPIO/current
+				echo "Uninstalling remote relay pins" >> /var/log/RemoteGPIOv2/current
 				/etc/rcS.d/S90rgpio_pins.sh
 			fi
 			latch=$((service))
@@ -48,7 +48,7 @@ do
 			###########################
 			if [ $service != $latch ]
                 then
-                    echo "Installing remote relay pins" >> /var/log/RemoteGPIO/current
+                    echo "Installing remote relay pins" >> /var/log/RemoteGPIOv2/current
 					/etc/rcS.d/S90rgpio_pins.sh
 			fi
 			latch=$((service))
@@ -106,7 +106,7 @@ do
 			###########################
 			if [ $service != $latch ]
                 then
-                    echo "Re-installing remote relay pins" >> /var/log/RemoteGPIO/current
+                    echo "Re-installing remote relay pins" >> /var/log/RemoteGPIOv2/current
 					/etc/rcS.d/S90rgpio_pins.sh
 					set_setting /Settings/Services/RemoteGPIO variant:int32:1
 					set_setting /Settings/RemoteGPIO/Restart variant:int32:0
