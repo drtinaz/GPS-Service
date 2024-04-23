@@ -1,2 +1,4 @@
+v3.0.4
+	Cleanup code. Remove gui restart from S90 script. Remove serial starter rules patch. (not needed for tcp application)
 v3.0
 	Initial release

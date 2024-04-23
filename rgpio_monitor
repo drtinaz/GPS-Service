@@ -7,7 +7,6 @@
 ## END INIT INFO
 
 exec 2>&1
-#/etc/rcS.d/S90rgpio_pins.sh
 
 get_setting()
 	{

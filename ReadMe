@@ -1,7 +1,26 @@
-This package installs RemoteGPIOv2 for use with TCP over IP. Dingtian module TCP server must be set to TCP over IP
-Install Kevin Windrem's package manager and guimods. then add the following to active packages list:
+This package installs RemoteGPIOv2 for use with TCP over IP using node red. (this method proves to use much less system resources than the dbus driver version RemoteGPIO)
+
+********* Installation ************
+
+1)  Connect to the dingtian web interface via the built in AP. The default IP address is 192.168.7.1. On the relay settings tab make sure to set the TCP server to TCP over IP.
+
+2)  Install Kevin Windrem's package manager and guimods.
+
+3)  Navigate to the 'inactive packages' menu and select 'add package'. Enter the following information:
 packagename:RemoteGPIOv2
 github username:drtinaz
 branch:main
 
-Import the dashboard json from this package into node-red, then open the flow and set the IP address accordingly. Can use ethernet or Wifi to connect the relay module. Module sizes 2, 4 or 8 can be used.
+4)  Import the dashboard json from this package into node-red, then open the flow and set the IP address accordingly. Either ethernet or wifi can be used to connect the relay module. Module sizes 2, 4 or 8 can be used.
+
+********* Setup ************
+
+1)  Navigate to setting/IO/RemoteGPIO and click 'enable'.
+
+2)  Select the number of modules.
+
+3)  For each active module, enter the IP address of the module and the number of relays.
+
+4)  Under 'additional option', you will find the options to read the relay status and enable/disable digital inputs, as well as reboot the module.
+
+5)  Once all options have been set, navigate to the main RemoteGPIO setting page and select 'restart RemoteGPIO'
