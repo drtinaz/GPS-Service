@@ -36,7 +36,7 @@ do
 			###################
 			if [ $service != $latch ]
 			then
-				echo "Uninstalling remote relay pins" >> /var/log/RemoteGPIOv2/current
+				echo "Uninstalling remote relay pins" >> /var/log/HARemoteGPIO/current
 				/etc/rcS.d/S90rgpio_pins.sh
 			fi
 			latch=$((service))
@@ -47,65 +47,19 @@ do
 			###########################
 			if [ $service != $latch ]
                 then
-                    echo "Installing remote relay pins" >> /var/log/RemoteGPIOv2/current
+                    echo "Installing remote relay pins" >> /var/log/HARemoteGPIO/current
 					/etc/rcS.d/S90rgpio_pins.sh
 			fi
 			latch=$((service))
 			;;
-		2)
-			##
-			## Reboot device
-            ###########################
-			if [ $service != $latch ]
-            then
-				Reboot_Unit1=$(get_setting /Settings/RemoteGPIO/Unit1/Reboot)
-                Reboot_Unit2=$(get_setting /Settings/RemoteGPIO/Unit2/Reboot)
-				Reboot_Unit3=$(get_setting /Settings/RemoteGPIO/Unit3/Reboot)
-				
-				if [ $Reboot_Unit1 = 1 ] 
-				##
-				## Reboot Unit1
-				#####################
-				then
-					IP_Unit1=$(get_IP /Settings/RemoteGPIO/Unit1/IP)
-					wget http://$IP_Unit1/reboot.cgi
-					# Clear reboot flag and put RemoteGPIO service to 1
-					set_setting /Settings/RemoteGPIO/Unit1/Reboot variant:int32:0
-					set_setting /Settings/Services/RemoteGPIO variant:int32:1
-				fi
 
-                if [ $Reboot_Unit2 =1 ]
-				##
-				## Reboot Unit 2
-                ####################
-				then
-                	IP_Unit2=$(get_IP /Settings/RemoteGPIO/Unit2/IP)
-                    wget http://$IP_Unit2/reboot.cgi  
-                    # Clear reboot flag and put RemoteGPIO service to 1          
-                    set_setting /Settings/RemoteGPIO/Unit2/Reboot variant:int32:0
-                    set_setting /Settings/Services/RemoteGPIO variant:int32:1
-            	fi
-    
-				if [ $Reboot_Unit3 = 1 ]
-				##
-				## Reboot Unit 3
-                ####################
-				then
-                	IP_Unit3=$(get_IP /Settings/RemoteGPIO/Unit3/IP)
-                    wget http://$IP_Unit3/reboot.cgi  
-                    # Clear reboot flag and put RemoteGPIO service to 1          
-                    set_setting /Settings/RemoteGPIO/Unit3/Reboot variant:int32:0
-                    set_setting /Settings/Services/RemoteGPIO variant:int32:1
-            	fi
-			fi
-			;;	
 		3)
 			##
 			## Restart Service
 			###########################
 			if [ $service != $latch ]
                 then
-                    echo "Re-installing remote relay pins" >> /var/log/RemoteGPIOv2/current
+                    echo "Re-installing remote relay pins" >> /var/log/HARemoteGPIO/current
 					/etc/rcS.d/S90rgpio_pins.sh
 					set_setting /Settings/Services/RemoteGPIO variant:int32:1
 					set_setting /Settings/RemoteGPIO/Restart variant:int32:0

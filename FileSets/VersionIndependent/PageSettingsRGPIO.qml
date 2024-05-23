@@ -8,7 +8,7 @@ MbPage {
         property string rgpioSettings: "dbus/com.victronenergy.settings/Settings/RemoteGPIO"
         property string serviceSetting: "dbus/com.victronenergy.settings/Settings/Services/RemoteGPIO"
 
-	title: qsTr("RemoteGPIO")
+	title: qsTr("HARemoteGPIO")
 
 
 	model: VisualModels {
@@ -57,7 +57,7 @@ MbPage {
 
 			MbSwitch {                                  
             	id: restart                           
-            	name: qsTr("Restart RemoteGPIO Service")
+            	name: qsTr("Restart HARemoteGPIO Service")
 				bind: [rgpioSettings, "/Restart"]
 				show: enable.checked                 
         	}         

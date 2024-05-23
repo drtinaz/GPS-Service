@@ -14,13 +14,6 @@ MbPage {
 	model: VisualModels {
 		VisibleItemModel {
 
-	    	MbEditBox {
-            	description: qsTr("Unit 3 IP Address")
-            	maximumLength: 15
-				item.bind: [rgpioSettings, "/IP"]
-            	matchString: ".0123456789"
-			}
-
 			MbItemOptions {
                 id: numrelays
                 description: qsTr("Number of Relays")
@@ -31,17 +24,7 @@ MbPage {
                     MbOption {description: qsTr("4 Relays"); value: 4},
                     MbOption {description: qsTr("8 Relays"); value: 8}
                 ]
-            }
-
-			MbSubMenu {
-				description: qsTr("Additional Options")
-				subpage: Component { PageSettingsUnit3Options {} }
-			}
-                        
-        	MbItemText {                                                               
-            	text: qsTr("Relay module needs to be configured with Addr = 3. TCP Service must be set to Modbus-TCP. Total number of relays for ALL connected modules MUST NOT exceed 16!")     
-            	wrapMode: Text.WordWrap                                            
-        	}    
+            }    
 		}
 	}
 }

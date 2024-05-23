@@ -85,7 +85,7 @@ MbPage {
 		
 		MbSubMenu {
 			description: qsTr
-			("RemoteGPIO")
+			("HARemoteGPIO")
 			subpage: Component {
 			PageSettingsRGPIO {} }
 		}
