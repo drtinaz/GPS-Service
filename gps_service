@@ -4,6 +4,9 @@
 LOG_FILE="/data/gps_service.log"
 MAX_LOG_SIZE=512000  # 500KB
 
+while true
+do
+
 # Function to check and clear log file if it exceeds MAX_LOG_SIZE
 check_log_size() {
     if [ -f "$LOG_FILE" ] && [ "$(stat -c%s "$LOG_FILE")" -ge "$MAX_LOG_SIZE" ]; then
@@ -101,3 +104,4 @@ check_gps_data() {
         if IFS= read -r -t $per_read_timeout line < /dev/ttyGPS0; then
             # Remove any carriage return characters
             line="${line%%
+done
