@@ -6,7 +6,7 @@
 #	setup install
 #	setup uninstall
 
-packageLogFile="/var/log/HARemoteGPIO/current"
+packageLogFile="/var/log/GPS-Service/current"
 
 #### following line incorporates helper resources into this script
 source "/data/SetupHelper/HelperResources/IncludeHelpers"
@@ -22,8 +22,7 @@ packageGitHubBranch="main"
 #### running manually and OK to proceed - prompt for input
 if [ $scriptAction == 'NONE' ] ; then
 	echo
-	echo "HARemoteGPIO is adding entries for external Relays and Digital Inputs"
-	echo "for use with relay modules controlled via Home Assistant"
+	echo "Installing a service to integrate router gps with venus os"
 	echo
 	standardActionPrompt
 fi
@@ -31,13 +30,13 @@ fi
 #### here to do the actual work
 
 if [ $scriptAction == 'INSTALL' ] ; then
-	logMessage "++ Installing HARemoteGPIO"
+	logMessage "++ Installing GPS-Service"
 
 	##
 	## Prepare the devices in /data/RemoteGPIO/sys and conf folder
 	##############################################################
-	tar -xvf /data/HARemoteGPIO/FileSets/VersionIndependent/sys.tar.gz -C /data/HARemoteGPIO/
-	tar -xvf /data/HARemoteGPIO/FileSets/VersionIndependent/bin.tar.gz -C /data/HARemoteGPIO/
+	#tar -xvf /data/HARemoteGPIO/FileSets/VersionIndependent/sys.tar.gz -C /data/HARemoteGPIO/
+	#tar -xvf /data/HARemoteGPIO/FileSets/VersionIndependent/bin.tar.gz -C /data/HARemoteGPIO/
 	
 
 	logMessage "++ $packageName installed"
@@ -47,51 +46,21 @@ fi
 # #### uninstalling - check scriptAction again
 # if an install step failed package needs to be removed
 if [ $scriptAction == 'UNINSTALL' ] ; then
-    logMessage "++ Uninstalling HARemoteGPIO"
+    logMessage "++ Uninstalling GPS-Service"
 
 	##
 	## Delete devices
 	#################	
-	rm -f /dev/gpio/relay_3
-	rm -f /dev/gpio/relay_4
-	rm -f /dev/gpio/relay_5
-	rm -f /dev/gpio/relay_6
-	rm -f /dev/gpio/relay_7
-	rm -f /dev/gpio/relay_8
-	rm -f /dev/gpio/relay_9
-	rm -f /dev/gpio/relay_a
-	rm -f /dev/gpio/relay_b
-	rm -f /dev/gpio/relay_c
-	rm -f /dev/gpio/relay_d
-	rm -f /dev/gpio/relay_e
-	rm -f /dev/gpio/relay_f
-	rm -f /dev/gpio/relay_g
-	rm -f /dev/gpio/relay_h
-	rm -f /dev/gpio/relay_i
-	rm -f /dev/gpio/digital_input_5
-	rm -f /dev/gpio/digital_input_6
-	rm -f /dev/gpio/digital_input_7
-	rm -f /dev/gpio/digital_input_8
-	rm -f /dev/gpio/digital_input_9
-	rm -f /dev/gpio/digital_input_a
-	rm -f /dev/gpio/digital_input_b
-	rm -f /dev/gpio/digital_input_c
-	rm -f /dev/gpio/digital_input_d
-	rm -f /dev/gpio/digital_input_e
-	rm -f /dev/gpio/digital_input_f
-	rm -f /dev/gpio/digital_input_g
-	rm -f /dev/gpio/digital_input_h
-	rm -f /dev/gpio/digital_input_i
-	rm -f /dev/gpio/digital_input_j
-	rm -f /dev/gpio/digital_input_k
 	
+	#rm -f /dev/gpio/digital_input_f
+
 	
 		
 	logMessage "++ $packageName uninstalled"
 fi
 
 
-	svc -t /service/dbus-digitalinputs
+	#svc -t /service/dbus-digitalinputs
 
 logMessage "completed"
 	
