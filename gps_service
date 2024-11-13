@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Path to log file
-LOG_FILE="/data/gps_watchdog.log"
+LOG_FILE="/data/gps_service.log"
 MAX_LOG_SIZE=512000  # 500KB
 
 # Function to check and clear log file if it exceeds MAX_LOG_SIZE
