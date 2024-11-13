@@ -1,4 +1,4 @@
 #!/bin/sh
 echo "*** starting GPS-Service Watchdog ***"
 exec 2>&1
-exec /data/GPS-Service/gps_monitor
+exec /data/GPS-Service/gps_service
