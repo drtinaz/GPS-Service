@@ -65,5 +65,5 @@ fi
 logMessage "completed"
 	
 # thats all folks - SCRIPT EXITS INSIDE THE FUNCTION
-endScript INSTALL_FILES ADD_DBUS_SETTINGS INSTALL_SERVICES
+endScript INSTALL_SERVICES
 

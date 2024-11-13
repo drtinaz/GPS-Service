@@ -1,72 +1,103 @@
-#!/bin/sh
-### BEGIN INIT INFO
-# Short-Description: Monitors RemoteGPIO dbus Service
-# Description:       Allow stoping and starting RemoteGPIO service from victron GUI
-# Description: 	     It also manage the reboot of the Dingtian devices	
-# Description:	     Also keep units.conf up to date so it creates the gpio at boot time
-## END INIT INFO
+#!/bin/bash
 
-exec 2>&1
+# Path to log file
+LOG_FILE="/data/gps_watchdog.log"
+MAX_LOG_SIZE=512000  # 500KB
 
-get_setting()
-	{
-		dbus-send --print-reply=literal --system --type=method_call --dest=com.victronenergy.settings $1 com.victronenergy.BusItem.GetValue | awk '/int32/ { print $3 }'
-	}
+# Function to check and clear log file if it exceeds MAX_LOG_SIZE
+check_log_size() {
+    if [ -f "$LOG_FILE" ] && [ "$(stat -c%s "$LOG_FILE")" -ge "$MAX_LOG_SIZE" ]; then
+        echo "$(date): Log file exceeded $MAX_LOG_SIZE bytes. Clearing log file." > "$LOG_FILE"
+    fi
+}
 
-set_setting()
-    {
-		dbus-send --print-reply=literal --system --type=method_call --dest=com.victronenergy.settings $1 com.victronenergy.BusItem.SetValue $2
-    }
+check_log_size
 
-get_IP()
-	{
-        	dbus-send --print-reply=literal --system --type=method_call --dest=com.victronenergy.settings $1 com.victronenergy.BusItem.GetValue | awk '/variant/ { print $2 }'
-	} 
+# Function to log messages with timestamp
+log() {
+    echo "$(date): $1" >> "$LOG_FILE"
+}
 
-latch=0
-timer=$(date +%s)
+log "GPS Watchdog script triggered"
 
-while true
-do
-	service=$(get_setting /Settings/Services/RemoteGPIO)
-	case $service in
-		0)
-			##
-			## Stop Service
-			###################
-			if [ $service != $latch ]
-			then
-				echo "Uninstalling remote relay pins" >> /var/log/HARemoteGPIO/current
-				/etc/rcS.d/S90rgpio_pins.sh
-			fi
-			latch=$((service))
-			;;
-		1)
-            ##
-			## Start Service
-			###########################
-			if [ $service != $latch ]
-                then
-                    echo "Installing remote relay pins" >> /var/log/HARemoteGPIO/current
-					/etc/rcS.d/S90rgpio_pins.sh
-			fi
-			latch=$((service))
-			;;
+sleep 5  # Optional: Adjust as needed
 
-		3)
-			##
-			## Restart Service
-			###########################
-			if [ $service != $latch ]
-                then
-                    echo "Re-installing remote relay pins" >> /var/log/HARemoteGPIO/current
-					/etc/rcS.d/S90rgpio_pins.sh
-					set_setting /Settings/Services/RemoteGPIO variant:int32:1
-					set_setting /Settings/RemoteGPIO/Restart variant:int32:0
-			fi
-			;;
-	esac
+# Function to start socat and restart gps_dbus
+start_socat() {
+    log "Starting socat to create /dev/ttyGPS0"
+    # Remove any existing /dev/ttyGPS0 to prevent conflicts
+    if [ -e /dev/ttyGPS0 ]; then
+        rm -f /dev/ttyGPS0
+        log "Removed existing /dev/ttyGPS0"
+    fi
 
-	#Reduce CPU load
-	sleep 2
-done
+    /usr/bin/socat TCP:192.168.8.1:5555 pty,link=/dev/ttyGPS0,raw,nonblock,echo=0,b115200 2>> /data/socat.log &
+    socat_pid=$!
+
+    # Sleep for 10 seconds to allow /dev/ttyGPS0 to be created
+    sleep 10
+
+    if [ -e /dev/ttyGPS0 ]; then
+        log "/dev/ttyGPS0 now exists after starting socat"
+    else
+        log "Failed to create /dev/ttyGPS0 even after starting socat"
+        # Kill socat if it didn't create the device
+        kill $socat_pid
+        exit 1
+    fi
+
+    # After starting socat, restart gps_dbus
+    restart_gps_dbus
+}
+
+# Function to restart socat and gps_dbus
+restart_socat() {
+    log "Restarting socat and gps_dbus"
+    # Stop gps_dbus to prevent errors when /dev/ttyGPS0 disappears
+    pkill gps_dbus
+    sleep 2  # Wait for gps_dbus to terminate
+
+    # Kill existing socat process
+    pkill socat
+    sleep 2  # Wait for socat to terminate
+
+    # Start socat and gps_dbus
+    start_socat
+}
+
+# Function to check if socat is running
+is_socat_running() {
+    if pgrep -f "socat TCP:192.168.8.1:5555" > /dev/null 2>&1; then
+        return 0  # socat is running
+    else
+        return 1  # socat is not running
+    fi
+}
+
+# Function to restart gps_dbus
+restart_gps_dbus() {
+    log "Restarting gps_dbus service"
+    # Stop any existing gps_dbus instances
+    pkill gps_dbus
+    sleep 2  # Wait for gps_dbus to terminate
+
+    # Start gps_dbus service
+    /opt/victronenergy/gps-dbus/gps_dbus -s /dev/ttyGPS0 -b 115200 -t 0 &
+    gps_dbus_pid=$!
+    log "Started gps_dbus service with PID $gps_dbus_pid"
+
+    # Wait for the service to initialize
+    sleep 10
+}
+
+# Function to check GPS data using 'read' with a timeout for NMEA sentences
+check_gps_data() {
+    local line
+    local total_timeout=10  # Total time to wait in seconds
+    local per_read_timeout=1  # Timeout per read in seconds
+    local end_time=$((SECONDS + total_timeout))
+
+    while [ $SECONDS -lt $end_time ]; do
+        if IFS= read -r -t $per_read_timeout line < /dev/ttyGPS0; then
+            # Remove any carriage return characters
+            line="${line%%
